@@ -1,8 +1,9 @@
 
 var AM = new AssetManager();
-var width = 50;
-var height = 50;
+var width = 20;
+var height = 20;
 var gameEngine = new GameEngine();
+var socket = io("24.16.255.56:8888");
 
 function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
     this.spriteSheet = spriteSheet;
@@ -19,10 +20,32 @@ function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDu
 }
 
 function speedup() {
-    gameEngine.speedqt -= .1;
+    gameEngine.speedqt -= .2;
 }
 function speeddown() {
-    gameEngine.speedqt += .1;
+    gameEngine.speedqt += .2;
+}
+
+
+function save() {
+    console.log("save");
+
+    socket.emit('save', {data: {studentname: "Codie Bryan", statename: "test"}, generation:gameEngine.generation, livecells:gameEngine.livecells, theGrid:gameEngine.grid});
+
+}
+function load() {
+    socket.emit('load', {data: '{studentname: Codie Bryan, statename: test}'});
+    socket.on('load', function(socket) {
+        console.log("loaded");
+        console.log(socket.generation);
+        console.log(socket.livecells);
+        console.log(socket.data);
+        gameEngine.generation = socket.generation;
+        gameEngine.livecells = socket.livecells;
+        gameEngine.grid = socket.theGrid;
+        console.log(socket.theGrid);
+    });
+    
 }
 
 Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
@@ -74,15 +97,15 @@ function Pixel(game, spritesheet, x, y, color, i, j,alive) {
     this.y = y;
     this.i = i;
     this.j = j;
-    this.width = 5;
-    this.height = 5;
+    this.width = 1;
+    this.height = 1;
     this.game = game;
     this.ticks = Math.floor((Math.random() * 500) + 500);
     this.count = 0;
     this.spritesheet = spritesheet;
     this.color = color;
     //console.log(color);
-    this.animation = new Animation(spritesheet, 20, 0, 10, 10, 1, 5, true, false);
+    this.animation = new Animation(spritesheet, 20, 0, 5, 5, 1, 5, true, false);
    
     this.ctx = game.ctx;
     this.xv = 0;

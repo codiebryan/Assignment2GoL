@@ -36,14 +36,17 @@
     <title>Snow Game of Life</title>
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
     <script type="text/javascript" src="./main.js"></script>
 </head>
 <body style="background-color:white;">
     <div style="width:100%; text-align:center;">
         <div id="gamepad" style="display:inline-block">
-            <canvas id="gameWorld" tabindex="1" width="600" height="600" style="border: 1px solid white; background: white"></canvas>
+            <canvas id="gameWorld" tabindex="1" width="800" height="600" style="border: 1px solid white; background: white"></canvas>
             <button class="button button2" onclick="speeddown()">Speed Down</button>
             <button class="button button2" onclick="speedup()">Speed Up</button>
+            <button class="button button2" onclick="save()">Save</button>
+            <button class="button button2" onclick="load()">Load</button>
         
         </div>
     </div>

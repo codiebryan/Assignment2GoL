@@ -3,7 +3,7 @@ var AM = new AssetManager();
 var width = 20;
 var height = 20;
 var gameEngine = new GameEngine();
-var socket = io("http://24.16.255.56:8888");
+var socket = io("http://24.16.255.56:8888", {secure: false});
 
 function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
     this.spriteSheet = spriteSheet;
